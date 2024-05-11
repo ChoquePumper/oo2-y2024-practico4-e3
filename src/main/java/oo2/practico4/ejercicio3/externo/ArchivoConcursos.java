@@ -1,12 +1,13 @@
 package oo2.practico4.ejercicio3.externo;
 
-import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import oo2.practico4.ejercicio3.modelo.Concurso;
 import oo2.practico4.ejercicio3.modelo.Concursos;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

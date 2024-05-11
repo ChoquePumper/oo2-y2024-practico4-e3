@@ -1,8 +1,8 @@
 package oo2.practico4.ejercicio3.externo;
 
 import com.opencsv.CSVWriter;
-import oo2.practico4.ejercicio3.modelo.Participante;
 import oo2.practico4.ejercicio3.modelo.Inscripciones;
+import oo2.practico4.ejercicio3.modelo.Participante;
 
 import java.io.File;
 import java.io.FileWriter;
