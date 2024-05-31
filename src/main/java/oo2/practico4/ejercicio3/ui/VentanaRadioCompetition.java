@@ -1,11 +1,13 @@
 package oo2.practico4.ejercicio3.ui;
 
+import oo2.practico4.ejercicio3.modelo.Concurso;
 import oo2.practico4.ejercicio3.modelo.Sistema;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class VentanaRadioCompetition {
 	private final Sistema sistema;
@@ -20,7 +22,7 @@ public class VentanaRadioCompetition {
 	private JTextField txtPhone;
 	private JLabel lblEmail;
 	private JTextField txtEmail;
-	private JComboBox<String> comboBox;
+	private JComboBox<ItemComboBox<String>> comboBox;
 	private JButton btnOk;
 	private JLabel lblCompetition;
 
@@ -62,13 +64,14 @@ public class VentanaRadioCompetition {
 			}
 		});
 		lblCompetition = new JLabel("Concurso:");
-		comboBox = new JComboBox<String>();
+		comboBox = new JComboBox<>();
 		todosLosConcursos();
 	}
 
 	private void todosLosConcursos() {
+		comboBox.addItem(new ItemVacio<>("(seleccione)"));
 		sistema.todosLosConcursos().forEach((concurso -> {
-			comboBox.addItem(concurso.getIdConcurso());
+			comboBox.addItem(new ItemConcurso(concurso));
 		}));
 
 	}
@@ -76,7 +79,7 @@ public class VentanaRadioCompetition {
 	private void saveInscription() {
 		// Guarda en inscriptos.txt los datos de la persona y el concurso elegido
 		try {
-			this.sistema.guardarInscripcion(txtName.getText(), txtLastName.getText(), txtId.getText(), txtEmail.getText(), txtPhone.getText(), (String) comboBox.getSelectedItem());
+			this.sistema.guardarInscripcion(txtName.getText(), txtLastName.getText(), txtId.getText(), txtEmail.getText(), txtPhone.getText(), ((ItemComboBox<String>) comboBox.getSelectedItem()).get());
 		} catch (RuntimeException e) {
 			JOptionPane.showMessageDialog(this.contentPane, e.getMessage());
 		}
@@ -144,5 +147,71 @@ public class VentanaRadioCompetition {
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(btnOk)
 								.addContainerGap(67, Short.MAX_VALUE)));
 		contentPane.setLayout(gl_contentPane);
+	}
+
+
+	private static class ItemConcurso extends ItemComboBox<String> {
+		private final String nombre;
+
+		public ItemConcurso(Concurso concurso) {
+			super(concurso.getIdConcurso());
+			this.nombre = concurso.getNombre();
+		}
+
+		@Override
+		public String textoAMostrar() {
+			return String.format("[%s] %s", obj, nombre);
+		}
+	}
+}
+
+
+abstract class ItemComboBox<T> {
+	protected final T obj;
+
+	public ItemComboBox(T obj) {
+		this.obj = obj;
+	}
+
+	public T get() {
+		return this.obj;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof ItemComboBox<?> that)) return false;
+		return Objects.equals(obj, that.obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(obj);
+	}
+
+	public abstract String textoAMostrar();
+
+	@Override
+	public String toString() {
+		return textoAMostrar();
+	}
+}
+
+class ItemVacio<T> extends ItemComboBox<T> {
+
+	private final String msj;
+
+	public ItemVacio() {
+		this(null);
+	}
+
+	public ItemVacio(String msj) {
+		super(null);
+		this.msj = Objects.requireNonNullElse(msj, "(vacío)");
+	}
+
+	@Override
+	public String textoAMostrar() {
+		return msj;
 	}
 }
