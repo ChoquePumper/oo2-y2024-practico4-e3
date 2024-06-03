@@ -36,9 +36,11 @@ public class Main {
 		prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
 
 		//Concursos concursos = concursosPorArchivo();
-		Inscripciones inscripciones = inscripcionesPorArchivo();
+		//Inscripciones inscripciones = inscripcionesPorArchivo();
 
-		DatabaseService concursos = servicioDeBaseDeDatos(prop);
+		DatabaseService baseDeDatos = servicioDeBaseDeDatos(prop);
+		Concursos concursos = baseDeDatos;
+		Inscripciones inscripciones = baseDeDatos;
 
 		Sistema sistema = new DefaultSistema(concursos, inscripciones);
 		new VentanaRadioCompetition(sistema);

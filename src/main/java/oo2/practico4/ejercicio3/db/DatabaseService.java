@@ -9,10 +9,12 @@ import java.util.List;
 
 public class DatabaseService implements Concursos, Inscripciones {
 
-	private ConcursoDAOJDBC daojdbc;
+	private ConcursoDAOJDBC concursos;
+	private InscripcionDAOJDBC inscripciones;
 
 	public DatabaseService(String subprotocolo, String subnombre, String user, String password) {
-		this.daojdbc = new ConcursoDAOJDBC(subprotocolo, subnombre, user, password);
+		this.concursos = new ConcursoDAOJDBC(subprotocolo, subnombre, user, password);
+		this.inscripciones = new InscripcionDAOJDBC(subprotocolo, subnombre, user, password);
 	}
 
 	public DatabaseService(DBParams params) {
@@ -21,11 +23,11 @@ public class DatabaseService implements Concursos, Inscripciones {
 
 	@Override
 	public List<Concurso> obtenerConcursos() {
-		return daojdbc.findAll();
+		return concursos.findAll();
 	}
 
 	@Override
 	public void registrarInscripcion(Inscripcion inscripcion) {
-		// TODO: implementar
+		inscripciones.create(inscripcion);
 	}
 }
