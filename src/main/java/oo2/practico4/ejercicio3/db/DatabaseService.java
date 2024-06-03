@@ -25,7 +25,7 @@ public class DatabaseService implements Concursos, Inscripciones {
 	}
 
 	@Override
-	public void guardarParticipante(Participante participante, String idConcurso) {
+	public void guardarParticipante(Participante participante) {
 		// TODO: implementar
 	}
 }

@@ -35,14 +35,14 @@ public class ArchivoInscripciones implements Inscripciones {
 	}
 
 	@Override
-	public void guardarParticipante(Participante participante, String idConcurso) {
+	public void guardarParticipante(Participante participante) {
 		try (var writer = new CSVWriter(new FileWriter(archivo, true))) {
 			String[] linea = {
 					participante.getApellido(),
 					participante.getNombre(),
 					participante.getTelefono().toString(),
 					participante.getEmail().toString(),
-					Objects.requireNonNull(idConcurso),
+					participante.getConcurso().getIdConcurso(),
 			};
 			writer.writeNext(linea);
 		} catch (IOException e) {

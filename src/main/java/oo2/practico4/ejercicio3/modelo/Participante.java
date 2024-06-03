@@ -8,13 +8,15 @@ public class Participante {
 	private final String dni;
 	private final Email email;
 	private final Telefono telefono;
+	private final Concurso concurso;
 
-	Participante(String nombre, String apellido, String dni, Email email, Telefono telefono) {
+	Participante(String nombre, String apellido, String dni, Email email, Telefono telefono, Concurso concurso) {
 		this.nombre = validarNoVacio(nombre, "nombre");
 		this.apellido = validarNoVacio(apellido, "apellido");
 		this.dni = validarNoVacio(dni, "dni");
 		this.email = validarNoNulo(email, "email");
 		this.telefono = validarNoNulo(telefono, "telefono");
+		this.concurso = validarNoNulo(concurso, "concurso");
 	}
 
 	private static boolean validarString(String s) {
@@ -60,5 +62,9 @@ public class Participante {
 
 	public Telefono getTelefono() {
 		return telefono;
+	}
+
+	public Concurso getConcurso() {
+		return concurso;
 	}
 }
