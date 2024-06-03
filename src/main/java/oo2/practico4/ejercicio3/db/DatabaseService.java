@@ -3,7 +3,7 @@ package oo2.practico4.ejercicio3.db;
 import oo2.practico4.ejercicio3.modelo.Concurso;
 import oo2.practico4.ejercicio3.modelo.Concursos;
 import oo2.practico4.ejercicio3.modelo.Inscripciones;
-import oo2.practico4.ejercicio3.modelo.Participante;
+import oo2.practico4.ejercicio3.modelo.Inscripcion;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class DatabaseService implements Concursos, Inscripciones {
 	}
 
 	@Override
-	public void guardarParticipante(Participante participante) {
+	public void registrarInscripcion(Inscripcion inscripcion) {
 		// TODO: implementar
 	}
 }

@@ -3,14 +3,14 @@ package oo2.practico4.ejercicio3.modelo;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class Participante {
+public class Inscripcion {
 	private final String nombre, apellido;
 	private final String dni;
 	private final Email email;
 	private final Telefono telefono;
 	private final Concurso concurso;
 
-	Participante(String nombre, String apellido, String dni, Email email, Telefono telefono, Concurso concurso) {
+	Inscripcion(String nombre, String apellido, String dni, Email email, Telefono telefono, Concurso concurso) {
 		this.nombre = validarNoVacio(nombre, "nombre");
 		this.apellido = validarNoVacio(apellido, "apellido");
 		this.dni = validarNoVacio(dni, "dni");
@@ -26,7 +26,7 @@ public class Participante {
 	private static String validarNoVacio(String s, String nombreCampo) {
 		return validar(validarNoNulo(s, nombreCampo),
 				String.format("'%s' no puede estar vacío.", nombreCampo),
-				Participante::validarString)
+				Inscripcion::validarString)
 				.trim();
 	}
 

@@ -2,12 +2,11 @@ package oo2.practico4.ejercicio3.externo;
 
 import com.opencsv.CSVWriter;
 import oo2.practico4.ejercicio3.modelo.Inscripciones;
-import oo2.practico4.ejercicio3.modelo.Participante;
+import oo2.practico4.ejercicio3.modelo.Inscripcion;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Objects;
 
 public class ArchivoInscripciones implements Inscripciones {
 	private static final String[] campos = {"apellido", "nombre", "teléfono", "email", "idconcurso"};
@@ -35,14 +34,14 @@ public class ArchivoInscripciones implements Inscripciones {
 	}
 
 	@Override
-	public void guardarParticipante(Participante participante) {
+	public void registrarInscripcion(Inscripcion inscripcion) {
 		try (var writer = new CSVWriter(new FileWriter(archivo, true))) {
 			String[] linea = {
-					participante.getApellido(),
-					participante.getNombre(),
-					participante.getTelefono().toString(),
-					participante.getEmail().toString(),
-					participante.getConcurso().getIdConcurso(),
+					inscripcion.getApellido(),
+					inscripcion.getNombre(),
+					inscripcion.getTelefono().toString(),
+					inscripcion.getEmail().toString(),
+					inscripcion.getConcurso().getIdConcurso(),
 			};
 			writer.writeNext(linea);
 		} catch (IOException e) {

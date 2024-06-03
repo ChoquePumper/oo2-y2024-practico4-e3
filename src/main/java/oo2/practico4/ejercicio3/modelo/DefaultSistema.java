@@ -33,10 +33,10 @@ public class DefaultSistema implements Sistema {
 			throw new RuntimeException("Debe elegir un concurso");
 		Concurso concurso = obtenerConcursoConId(idConcurso).orElseThrow(() -> new NoSuchElementException("No existe el concurso"));
 
-		Participante p = new Participante(nombre, apellido, dni, new Email(email), new Telefono(telefono), concurso);
+		Inscripcion p = new Inscripcion(nombre, apellido, dni, new Email(email), new Telefono(telefono), concurso);
 
 		// Guardar
-		participantes.guardarParticipante(p);
+		participantes.registrarInscripcion(p);
 	}
 
 	@Override
