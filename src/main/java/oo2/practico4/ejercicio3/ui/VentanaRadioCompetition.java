@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Objects;
 
 public class VentanaRadioCompetition {
@@ -69,8 +70,13 @@ public class VentanaRadioCompetition {
 	}
 
 	private void todosLosConcursos() {
-		comboBox.addItem(new ItemVacio<>("(seleccione)"));
-		sistema.todosLosConcursos().forEach((concurso -> {
+		List<Concurso> concursos = sistema.verConcursosDisponibles();
+		String msj = "(seleccione)";
+		if (concursos.isEmpty())
+			msj = ("(no hay concursos disponibles)");
+
+		comboBox.addItem(new ItemVacio<>(msj));
+		concursos.forEach((concurso -> {
 			comboBox.addItem(new ItemConcurso(concurso));
 		}));
 
