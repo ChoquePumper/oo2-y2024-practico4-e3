@@ -1,6 +1,7 @@
 package oo2.practico4.ejercicio3.modelo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -48,5 +49,9 @@ public class Concurso {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public boolean enPeriodoDeInscripcion(LocalDateTime ahora) {
+		return fechaInicioInscripcion.atTime(0, 0).isBefore(ahora) && ahora.isBefore(fechaFinInscripcion.atTime(0, 0));
 	}
 }

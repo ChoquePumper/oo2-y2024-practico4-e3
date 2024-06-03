@@ -1,5 +1,6 @@
 package oo2.practico4.ejercicio3.modelo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -37,6 +38,16 @@ public class DefaultSistema implements Sistema {
 
 		// Guardar
 		participantes.registrarInscripcion(p);
+	}
+
+	private boolean sePuedeInscribirEnConcurso(Concurso concurso, LocalDateTime ahora) {
+		return concurso.enPeriodoDeInscripcion(ahora);
+	}
+
+	@Override
+	public List<Concurso> verConcursosDisponibles() {
+		LocalDateTime ahora = LocalDateTime.now();
+		return todosLosConcursos().stream().filter(concurso -> sePuedeInscribirEnConcurso(concurso, ahora)).toList();
 	}
 
 	@Override
