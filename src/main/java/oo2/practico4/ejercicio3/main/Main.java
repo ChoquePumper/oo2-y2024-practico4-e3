@@ -1,7 +1,7 @@
 package oo2.practico4.ejercicio3.main;
 
-import oo2.practico4.ejercicio3.db.ConcursosDBService;
 import oo2.practico4.ejercicio3.db.DBParams;
+import oo2.practico4.ejercicio3.db.DatabaseService;
 import oo2.practico4.ejercicio3.externo.ArchivoConcursos;
 import oo2.practico4.ejercicio3.externo.ArchivoInscripciones;
 import oo2.practico4.ejercicio3.modelo.Concursos;
@@ -36,8 +36,10 @@ public class Main {
 		prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
 
 		//Concursos concursos = concursosPorArchivo();
-		Concursos concursos = concursosPorBaseDeDatos(prop);
 		Inscripciones inscripciones = inscripcionesPorArchivo();
+
+		DatabaseService concursos = servicioDeBaseDeDatos(prop);
+
 		Sistema sistema = new DefaultSistema(concursos, inscripciones);
 		new VentanaRadioCompetition(sistema);
 	}
@@ -46,12 +48,12 @@ public class Main {
 		return new ArchivoConcursos(Thread.currentThread().getContextClassLoader().getResource("concursos.txt").toURI());
 	}
 
-	private Concursos concursosPorBaseDeDatos(Properties prop) {
-		return new ConcursosDBService(parametrosDB(prop));
-	}
-
 	private Inscripciones inscripcionesPorArchivo() {
 		return new ArchivoInscripciones("inscriptos.txt");
+	}
+
+	private DatabaseService servicioDeBaseDeDatos(Properties prop) {
+		return new DatabaseService(parametrosDB(prop));
 	}
 
 	private DBParams parametrosDB(Properties prop) {
