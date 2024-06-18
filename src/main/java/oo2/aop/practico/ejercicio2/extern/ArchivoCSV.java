@@ -55,7 +55,7 @@ public class ArchivoCSV implements Registro, AutoCloseable {
 
 	private static String generarTextoFechaHora(LocalDateTime fechaHora) {
 		Objects.requireNonNull(fechaHora);
-		final DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern("uuuu/MM/dd hh:mm:ss");
+		final DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
 		return fechaHora.format(dtFmt);
 	}
 
