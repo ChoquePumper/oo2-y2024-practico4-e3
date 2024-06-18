@@ -40,7 +40,7 @@ public class ArchivoCSV implements Registro, AutoCloseable {
 			// para asegurar de que se escriba en el archivo, llamo a flush().
 			csvwriter.flush();
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			System.err.println("Error al escribir en el archivo: " + e);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class ArchivoCSV implements Registro, AutoCloseable {
 			//System.out.println("Cerrando archivo...");
 			csvwriter.close();
 		} catch (IOException e) {
-			System.err.println(e);
+			System.err.println(e.toString());
 		}
 	}
 }
