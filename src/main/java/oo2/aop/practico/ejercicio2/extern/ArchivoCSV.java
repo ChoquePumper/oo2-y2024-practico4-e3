@@ -14,11 +14,12 @@ import java.util.Objects;
 public class ArchivoCSV implements Registro {
 
 	private final File archivo;
-	private FileWriter fwriter;
+	private final CSVWriter csvwriter;
 
 	public ArchivoCSV(File archivo) throws IOException {
 		this.archivo = archivo;
-		this.fwriter = new FileWriter(archivo, true);
+		// El archivo se mantendrá abierto.
+		this.csvwriter = new CSVWriter(new FileWriter(archivo, true));
 	}
 
 	@Override
@@ -31,8 +32,11 @@ public class ArchivoCSV implements Registro {
 		};
 
 		// Escribir en archivo
-		try (var writer = new CSVWriter(fwriter)) {
-			writer.writeNext(linea);
+		try {
+			csvwriter.writeNext(linea);
+			// Debido a que el archivo se mantiene abierto:
+			// para asegurar de que se escriba en el archivo, llamo a flush().
+			csvwriter.flush();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
