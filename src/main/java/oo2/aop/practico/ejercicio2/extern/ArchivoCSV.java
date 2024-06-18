@@ -15,7 +15,7 @@ public class ArchivoCSV implements Registro {
 
 	public ArchivoCSV(File archivo) throws IOException {
 		this.archivo = archivo;
-		new FileWriter(archivo, true);
+		this.fwriter = new FileWriter(archivo, true);
 	}
 
 	@Override
