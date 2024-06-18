@@ -1,5 +1,7 @@
 package oo2.practico4.ejercicio3.modelo;
 
+import oo2.practico4.ejercicio3.annotations.Log;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -26,6 +28,7 @@ public class DefaultSistema implements Sistema {
 		return todosLosConcursos().stream().filter(concurso -> concurso.getIdConcurso().equals(s)).findFirst();
 	}
 
+	@Log
 	@Override
 	public void guardarInscripcion(String nombre, String apellido, String dni, String email, String telefono, String idConcurso) {
 		// Verificar si el concurso con tal id existe
@@ -50,6 +53,7 @@ public class DefaultSistema implements Sistema {
 		return todosLosConcursos().stream().filter(concurso -> sePuedeInscribirEnConcurso(concurso, ahora)).toList();
 	}
 
+	@Log
 	@Override
 	public List<Concurso> todosLosConcursos() {
 		if (listaConcursos == null)
