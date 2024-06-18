@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class ArchivoCSV implements Registro {
+public class ArchivoCSV implements Registro, AutoCloseable {
 
 	private final File archivo;
 	private final CSVWriter csvwriter;
@@ -20,6 +20,8 @@ public class ArchivoCSV implements Registro {
 		this.archivo = archivo;
 		// El archivo se mantendrá abierto.
 		this.csvwriter = new CSVWriter(new FileWriter(archivo, true));
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> this.close()));
 	}
 
 	@Override
@@ -55,5 +57,15 @@ public class ArchivoCSV implements Registro {
 		Objects.requireNonNull(fechaHora);
 		final DateTimeFormatter dtFmt = DateTimeFormatter.ofPattern("uuuu/MM/dd hh:mm:ss");
 		return fechaHora.format(dtFmt);
+	}
+
+	@Override
+	public void close() {
+		try {
+			//System.out.println("Cerrando archivo...");
+			csvwriter.close();
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 	}
 }
